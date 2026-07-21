@@ -1,0 +1,26 @@
+name: Circular Buffer CI
+
+on:
+  push:
+    paths:
+      - 'lessons/circular-buffer/**'
+      - '.github/workflows/circular-buffer-ci.yml'
+  pull_request:
+    paths:
+      - 'lessons/circular-buffer/**'
+      - '.github/workflows/circular-buffer-ci.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-test:
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: lessons/circular-buffer
+    steps:
+      - uses: actions/checkout@v6
+      - run: cmake --preset sanitized
+      - run: cmake --build --preset sanitized
+      - run: ctest --preset sanitized
