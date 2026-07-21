@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake: build debug",
+      "type": "shell",
+      "command": "cmake --preset debug && cmake --build --preset debug",
+      "group": {"kind": "build", "isDefault": true},
+      "problemMatcher": "$gcc"
+    },
+    {
+      "label": "CTest: debug",
+      "type": "shell",
+      "command": "ctest --preset debug",
+      "dependsOn": "CMake: build debug",
+      "group": "test"
+    },
+    {
+      "label": "CTest: sanitized",
+      "type": "shell",
+      "command": "cmake --preset sanitized && cmake --build --preset sanitized && ctest --preset sanitized",
+      "group": "test",
+      "problemMatcher": "$gcc"
+    }
+  ]
+}
